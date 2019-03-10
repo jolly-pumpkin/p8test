@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pulse8Console", "Pulse8Console\Pulse8Console.csproj", "{10D60CF2-DC3E-4B9E-9190-C329D10BC7E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{88F32567-395B-4FBF-8482-EE28D259B4D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10D60CF2-DC3E-4B9E-9190-C329D10BC7E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D60CF2-DC3E-4B9E-9190-C329D10BC7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D60CF2-DC3E-4B9E-9190-C329D10BC7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D60CF2-DC3E-4B9E-9190-C329D10BC7E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88F32567-395B-4FBF-8482-EE28D259B4D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88F32567-395B-4FBF-8482-EE28D259B4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88F32567-395B-4FBF-8482-EE28D259B4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88F32567-395B-4FBF-8482-EE28D259B4D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CABFCB9-813B-49A8-8F80-8C2C7AE02A95}
+	EndGlobalSection
+EndGlobal
