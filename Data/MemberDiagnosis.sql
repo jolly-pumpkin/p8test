@@ -1,38 +1,38 @@
-select 
+SELECT 
 m.MemberID, 
 m.FirstName, 
 m.LastName, 
-msd.MostSevereDiagnosis, 
+msd.MostSevereDiagnosisId, 
 d.DiagnosisDescription,
-c.DiagnosisCategoryID as 'CategoryID',
+c.DiagnosisCategoryID AS 'CategoryID',
 c.CategoryDescription,
 c.CategoryScore,
-coalesce(msc.MostSevereCategory,1) as 'IsMostSevereCategory'
-From Member m
+COALESCE(msc.MostSevereCategory,1) AS 'IsMostSevereCategory'
+FROM Member m
 LEFT JOIN 
 	(
-		select
-		md.MemberID, MIN(md.DiagnosisID) As 'MostSevereDiagnosis',  dcm.DiagnosisCategoryID
-		from MemberDiagnosis md
+		SELECT
+		md.MemberID, MIN(md.DiagnosisID) AS 'MostSevereDiagnosisId',  dcm.DiagnosisCategoryID
+		FROM MemberDiagnosis md
 		LEFT JOIN DiagnosisCategoryMap dcm ON dcm.DiagnosisID = md.DiagnosisID
 		GROUP BY md.MemberID, dcm.DiagnosisCategoryID
 	)msd
 ON msd.MemberID = m.MemberID
 LEFT JOIN
 	(
-		Select
-		md.MemberID, dm.DiagnosisID, dm.DiagnosisCategoryID, coalesce(msc.MostSevereCategory, 0) as 'MostSevereCategory'
-		from MemberDiagnosis md
+		SELECT
+		md.MemberID, dm.DiagnosisID, dm.DiagnosisCategoryID, COALESCE(msc.MostSevereCategory, 0) AS 'MostSevereCategory'
+		FROM MemberDiagnosis md
 		LEFT JOIN DiagnosisCategoryMap dm ON dm.DiagnosisID = md.DiagnosisID
 		LEFT JOIN (
-			select 
-			md.MemberID, min(dm.DiagnosisCategoryID) as 'MostSevereCategoryId', 1 as 'MostSevereCategory'
-			From MemberDiagnosis md 
+			SELECT 
+			md.MemberID, MIN(dm.DiagnosisCategoryID) AS 'MostSevereCategoryId', 1 AS 'MostSevereCategory'
+			FROM MemberDiagnosis md 
 			LEFT JOIN DiagnosisCategoryMap dm ON dm.DiagnosisID = md.DiagnosisID
 			GROUP BY md.MemberID
 			)msc
 		ON msc.MemberID = md.MemberID and dm.DiagnosisCategoryID = msc.MostSevereCategoryId
 	)msc
-ON msc.MemberID = m.MemberID and msc.DiagnosisID = msd.MostSevereDiagnosis	
-LEFT JOIN Diagnosis d ON msd.MostSevereDiagnosis = d.DiagnosisID
+ON msc.MemberID = m.MemberID and msc.DiagnosisID = msd.MostSevereDiagnosisId	
+LEFT JOIN Diagnosis d ON msd.MostSevereDiagnosisId = d.DiagnosisID
 LEFT JOIN DiagnosisCategory c ON c.DiagnosisCategoryID = msc.DiagnosisCategoryID

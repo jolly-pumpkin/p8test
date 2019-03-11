@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -55,7 +56,8 @@ namespace Pulse8Console
 
                             if(m != null)
                             {
-
+                                GetMemberDiagnoses gmd = new GetMemberDiagnoses(memberID);
+                                List<MemberDiagnosis> diagnoises = gmd.Execute(connection);
                             }
 
                         }
