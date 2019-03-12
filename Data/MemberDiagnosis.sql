@@ -7,7 +7,7 @@ d.DiagnosisDescription,
 c.DiagnosisCategoryID AS 'CategoryID',
 c.CategoryDescription,
 c.CategoryScore,
-COALESCE(msc.MostSevereCategory,1) AS 'IsMostSevereCategory'
+COALESCE(msc.MostSevereCategory, 1) AS 'IsMostSevereCategory'
 FROM Member m
 LEFT JOIN 
 	(

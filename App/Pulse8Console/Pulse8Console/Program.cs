@@ -53,9 +53,13 @@ namespace Pulse8Console
                             }
                         }
                     }
-                    catch (FormatException ex)
+                    catch (FormatException)
                     {
                         Console.WriteLine("Please enter a valid integer for a member id or \"stop\"");
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
                     }
                 }
             }
