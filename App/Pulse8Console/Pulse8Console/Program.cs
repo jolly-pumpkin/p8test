@@ -6,7 +6,6 @@ using System.IO;
 using DataAccess.Models;
 using DataAccess.Queries;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Pulse8Console
 {
@@ -23,23 +22,13 @@ namespace Pulse8Console
                 .AddJsonFile("appsettings.json", true, true)
                 .Build();
 
-            //Setup DI
-            var serviceProvider = new ServiceCollection()
-                .BuildServiceProvider();
-
-            
             //Code!
-
-
-            Console.WriteLine("Pulse8 app, please enter an memeber ID to get info, or enter \"stop\" to end programe");
             bool run = true;
-
             while (run)
             {
-                Console.WriteLine("Please enter a member id: ");
+                Console.WriteLine("Please enter a member id or \"stop\"");
 
                 string input = Console.ReadLine().ToLower();
-
                 if (input == "stop")
                 {
                     run = false;
@@ -51,26 +40,26 @@ namespace Pulse8Console
                         int memberID = Convert.ToInt32(input);
                         using (IDbConnection connection = new SqlConnection(config["ConnectionString:Pulse8TestDB"]))
                         {
-                            GetMember gm = new GetMember(memberID);
-                            Member m  = gm.Execute(connection);
+                            GetMemberDiagnoses gmd = new GetMemberDiagnoses(memberID);
+                            List<MemberDiagnosisDto> diagnoises = gmd.Execute(connection);
 
-                            if(m != null)
+                            if(diagnoises.Count > 0)
                             {
-                                GetMemberDiagnoses gmd = new GetMemberDiagnoses(memberID);
-                                List<MemberDiagnosis> diagnoises = gmd.Execute(connection);
+                                Display.MemberDiagnoses(diagnoises);
                             }
-
+                            else
+                            {
+                                Console.WriteLine($"Member: {memberID} does not exist.");
+                            }
                         }
                     }
                     catch (FormatException ex)
                     {
-                        Console.WriteLine("Please enter a valid integar for a member id: ");
+                        Console.WriteLine("Please enter a valid integer for a member id or \"stop\"");
                     }
                 }
             }
-
             Console.WriteLine("Finished");
-            Console.ReadLine();
         }
     }
 }
